@@ -9,8 +9,8 @@ sudo apt full-upgrade -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo apt install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak
-sudo systemctl enable gdm
+sudo apt install -y gnome-shell gnome-control-center gdm3 kitty nautilus flatpak
+sudo systemctl enable gdm3
 
 # ====================================
 # 3. Instalar VS Code
