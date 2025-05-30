@@ -8,13 +8,13 @@ sudo pacman -Syu --noconfirm
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo pacman -S --noconfirm gnome gnome-extra kitty nautilus flatpak gdm
+sudo pacman -S --noconfirm gnome-shell gnome-control-center gdm kitty nautilus flatpak
 sudo systemctl enable gdm
 
 # ====================================
-# 3. Instalar VS Code
+# 3. Instalar VS Code 
 # ====================================
-sudo pacman -S --noconfirm code
+paru -S --noconfirm visual-studio-code-bin
 
 # ====================================
 # 4. Instalar Pop Shell (Tiling)
@@ -41,4 +41,4 @@ flatpak install -y flathub app.zen_browser.zen
 # Descomente as linhas abaixo se desejar instalar os drivers NVIDIA.
 # Lembre-se de que os cabeçalhos do kernel devem estar instalados.
 # ====================================
-# sudo pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm nvidia-dkms nvidia-utils nvidia-settings
