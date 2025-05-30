@@ -8,7 +8,8 @@ sudo dnf update -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo dnf install -y @base-x @gnome-desktop gnome-shell gnome-control-center gdm kitty nautilus flatpak
+sudo dnf install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak
+sudo systemctl set-default graphical.target
 sudo systemctl enable gdm
 
 # ====================================
@@ -41,9 +42,11 @@ flatpak install -y flathub app.zen_browser.zen
 
 # ====================================
 # 6. Instalar Drivers NVIDIA (Opcional)
-# Descomente as linhas abaixo se desejar instalar os drivers NVIDIA.
 # ====================================
-# sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-# sudo dnf update -y
-# sudo dnf install -y akmod-nvidia
-# sudo dnf install -y xorg-x11-drv-nvidia-cuda
+read -p "Deseja instalar os drivers NVIDIA? (s/N): " install_nvidia
+if [[ "$install_nvidia" =~ ^[Ss]$ ]]; then
+    sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf update -y
+    sudo dnf install -y akmod-nvidia
+    sudo dnf install -y xorg-x11-drv-nvidia-cuda
+fi
