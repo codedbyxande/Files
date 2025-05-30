@@ -47,10 +47,11 @@ flatpak install -y flathub app.zen_browser.zen
 
 # ====================================
 # 6. Instalar Drivers NVIDIA (Opcional)
-# Descomente as linhas abaixo se desejar instalar os drivers NVIDIA.
-# Certifique-se de que a seção 'non-free' esteja habilitada no seu sources.list.
 # ====================================
-# sudo sed -i 's/ main$/ main contrib non-free/' /etc/apt/sources.list
-# sudo sed -i 's/ main non-free-firmware$/ main contrib non-free non-free-firmware/' /etc/apt/sources.list
-# sudo apt update -y
-# sudo apt install -y nvidia-driver firmware-misc-nonfree
+read -p "Deseja instalar os drivers NVIDIA? (s/N): " install_nvidia
+if [[ "$install_nvidia" =~ ^[Ss]$ ]]; then
+    sudo sed -i 's/ main$/ main contrib non-free/' /etc/apt/sources.list
+    sudo sed -i 's/ main non-free-firmware$/ main contrib non-free non-free-firmware/' /etc/apt/sources.list
+    sudo apt update -y
+    sudo apt install -y nvidia-driver firmware-misc-nonfree
+fi
