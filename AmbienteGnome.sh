@@ -94,19 +94,17 @@ update_system() {
 }
 update_system
 
-# Instalar componentes base
+# Instalar componentes base (GNOME Mínimo)
 install_base() {
-    echo -e "${CYAN}\n--- INSTALANDO COMPONENTES BASE ---${NC}"
+    echo -e "${CYAN}\n--- INSTALANDO COMPONENTES BASE (GNOME MÍNIMO) ---${NC}"
     case "$DISTRO" in
         fedora)
-            run_cmd "sudo dnf install -y @base-x gnome-shell gnome-control-center gdm kitty nautilus flatpak"
+            run_cmd "sudo dnf install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak"
             ;;
         cachyos)
             run_cmd "sudo pacman -S --noconfirm gnome-shell gnome-control-center gdm kitty nautilus flatpak"
             ;;
         debian*)
-            run_cmd "sudo apt install -y tasksel"
-            run_cmd "sudo tasksel install gnome-desktop"
             run_cmd "sudo apt install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak"
             ;;
     esac
@@ -139,26 +137,47 @@ install_vscode
 # Instalar Pop Shell (Tiling)
 install_pop_shell() {
     echo -e "${CYAN}\n--- INSTALANDO POP SHELL ---${NC}"
+    # Instalação de dependências para Pop Shell
     case "$DISTRO" in
-        fedora|debian*)
-            run_cmd "git clone https://github.com/pop-os/shell.git /tmp/pop-shell"
-            run_cmd "cd /tmp/pop-shell"
-            run_cmd "make local-install"
+        fedora)
+            run_cmd "sudo dnf install -y nodejs npm typescript make git"
             ;;
         cachyos)
-            run_cmd "paru -S --noconfirm gnome-shell-extension-pop-shell"
+            run_cmd "sudo pacman -S --noconfirm nodejs npm typescript make git"
+            ;;
+        debian*)
+            run_cmd "sudo apt install -y nodejs npm typescript make git"
             ;;
     esac
+    
+    # Clonar, compilar e instalar o Pop Shell
+    TEMP_DIR=$(mktemp -d -t pop-shell-XXXXXX)
+    run_cmd "git clone https://github.com/pop-os/shell.git ${TEMP_DIR}/pop-shell"
+    run_cmd "cd ${TEMP_DIR}/pop-shell"
+    run_cmd "make local-install"
+    run_cmd "cd -" # Volta para o diretório anterior
+    run_cmd "rm -rf ${TEMP_DIR}" # Limpa o diretório temporário
 }
 install_pop_shell
 
 # Configurar Flatpak
 setup_flatpak() {
     echo -e "${CYAN}\n--- CONFIGURANDO FLATPAK ---${NC}"
+    # Instala o pacote flatpak se ainda não estiver instalado para Debian
+    if ([ "$DISTRO" == "debian_stable" ] || [ "$DISTRO" == "debian_sid" ]) && ! command -v flatpak &> /dev/null; then
+        run_cmd "sudo apt install -y flatpak"
+    fi
+
     run_cmd "flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo"
     run_cmd "flatpak install -y flathub com.github.tchx84.Flatseal"
     run_cmd "flatpak install -y flathub com.mattjakeman.ExtensionManager"
-    run_cmd "flatpak install -y flathub app.zen_browser.zen"
+    
+    # Instalação do Zen Browser (Flatpak para Fedora/Debian, AUR para CachyOS)
+    if [ "$DISTRO" == "fedora" ] || [ "$DISTRO" == "debian_stable" ] || [ "$DISTRO" == "debian_sid" ]; then
+        run_cmd "flatpak install -y flathub app.zen_browser.zen"
+    elif [ "$DISTRO" == "cachyos" ]; then
+        run_cmd "paru -S --noconfirm zen-browser-bin"
+    fi
 }
 setup_flatpak
 
@@ -176,7 +195,21 @@ install_nvidia() {
             run_cmd "sudo pacman -S --noconfirm nvidia-dkms nvidia-utils"
             ;;
         debian*)
+            # Habilita a seção non-free se ainda não estiver habilitada
+            if ! grep -q "non-free" /etc/apt/sources.list; then
+                echo -e "${CYAN}Adicionando 'non-free' aos repositórios APT...${NC}"
+                # Para Sid, as fontes devem apontar para 'unstable'
+                if [ "$DISTRO" == "debian_sid" ]; then
+                    run_cmd "sudo sh -c 'echo \"deb http://deb.debian.org/debian/ unstable main contrib non-free\" > /etc/apt/sources.list'"
+                    run_cmd "sudo sh -c 'echo \"deb-src http://deb.debian.org/debian/ unstable main contrib non-free\" >> /etc/apt/sources.list'"
+                else # Debian Stable
+                    run_cmd "sudo sed -i 's/ main$/ main contrib non-free/' /etc/apt/sources.list"
+                    run_cmd "sudo sed -i 's/ main non-free-firmware$/ main contrib non-free non-free-firmware/' /etc/apt/sources.list"
+                fi
+                run_cmd "sudo apt update -y"
+            fi
             run_cmd "sudo apt install -y nvidia-driver firmware-misc-nonfree"
+            echo -e "${YELLOW}Após a instalação dos drivers NVIDIA, é **altamente recomendado** reiniciar o sistema para que as alterações entrem em vigor.${NC}"
             ;;
     esac
 }
