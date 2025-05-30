@@ -70,8 +70,20 @@ update_system() {
     echo -e "${CYAN}\n--- ATUALIZANDO SISTEMA ---${NC}"
     case "$DISTRO" in
         fedora)
-            run_cmd "sudo dnf config-manager --setopt=max_parallel_downloads=10 --save"
-            run_cmd "sudo dnf config-manager --setopt=fastestmirror=True --save"
+            # Adiciona ou modifica as configurações diretamente no dnf.conf
+            echo -e "${CYAN}Configurando max_parallel_downloads e fastestmirror no dnf.conf...${NC}"
+            if ! grep -q "max_parallel_downloads=" /etc/dnf/dnf.conf; then
+                run_cmd "sudo sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf"
+            else
+                run_cmd "sudo sed -i 's/^max_parallel_downloads=.*/max_parallel_downloads=10/' /etc/dnf/dnf.conf"
+            fi
+
+            if ! grep -q "fastestmirror=" /etc/dnf/dnf.conf; then
+                run_cmd "sudo sed -i '/^\[main\]/a fastestmirror=True' /etc/dnf/dnf.conf"
+            else
+                run_cmd "sudo sed -i 's/^fastestmirror=.*/fastestmirror=True/' /etc/dnf/dnf.conf"
+            fi
+
             run_cmd "sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
             run_cmd "sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
             run_cmd "sudo dnf update -y"
