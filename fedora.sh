@@ -6,12 +6,12 @@
 sudo dnf update -y
 
 # ====================================
-# 2. Instalar Componentes Base (GNOME Mínimo)
+# 2. Instalar Componentes Base (KDE Mínimo)
 # ====================================
-sudo dnf install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak
+sudo dnf install -y plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty  flatpak
 sudo dnf install -y hyprland hyprland-devel rofi-wayland
 sudo systemctl set-default graphical.target
-sudo systemctl enable gdm
+sudo systemctl enable sddm
 
 # ====================================
 # 3. Instalar VS Code
@@ -22,18 +22,7 @@ sudo dnf check-update
 sudo dnf install -y code
 
 # ====================================
-# 4. Instalar Pop Shell (Tiling)
-# ====================================
-sudo dnf install -y nodejs npm typescript make git
-TEMP_DIR=$(mktemp -d -t pop-shell-XXXXXX)
-git clone https://github.com/pop-os/shell.git "${TEMP_DIR}/pop-shell"
-cd "${TEMP_DIR}/pop-shell"
-make local-install
-cd - > /dev/null
-rm -rf "${TEMP_DIR}"
-
-# ====================================
-# 5. Configurar Flatpak
+# 4. Configurar Flatpak
 # ====================================
 sudo dnf install -y flatpak # Garante que flatpak esteja instalado
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -42,7 +31,7 @@ flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub app.zen_browser.zen
 
 # ====================================
-# 6. Instalar Drivers NVIDIA (Opcional)
+# 5. Instalar Drivers NVIDIA (Opcional)
 # ====================================
 read -p "Deseja instalar os drivers NVIDIA? (s/N): " install_nvidia
 if [[ "$install_nvidia" =~ ^[Ss]$ ]]; then
