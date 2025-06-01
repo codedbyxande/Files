@@ -8,7 +8,7 @@ sudo pacman -Syu --noconfirm
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo pacman -S --noconfirm plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty flatpak
+sudo pacman -S --noconfirm plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty flatpak sddm-kcm sddm
 sudo systemctl enable sddm
 
 # ====================================
