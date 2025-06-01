@@ -9,8 +9,8 @@ sudo apt full-upgrade -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo apt install -y gnome-shell gnome-control-center gdm3 kitty nautilus flatpak
-sudo systemctl enable gdm3
+sudo apt install -y plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty flatpak
+sudo systemctl enable sddm
 
 # ====================================
 # 3. Instalar VS Code
@@ -24,20 +24,8 @@ sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code # or code-insiders
 
-
 # ====================================
-# 4. Instalar Pop Shell (Tiling)
-# ====================================
-sudo apt install -y nodejs npm typescript make git
-TEMP_DIR=$(mktemp -d -t pop-shell-XXXXXX)
-git clone https://github.com/pop-os/shell.git "${TEMP_DIR}/pop-shell"
-cd "${TEMP_DIR}/pop-shell"
-make local-install
-cd - > /dev/null
-rm -rf "${TEMP_DIR}"
-
-# ====================================
-# 5. Configurar Flatpak
+# 4. Configurar Flatpak
 # ====================================
 sudo apt install -y flatpak # Garante que flatpak esteja instalado
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
