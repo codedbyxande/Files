@@ -9,8 +9,8 @@ sudo apt full-upgrade -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo apt install -y plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty flatpak sddm sddm-kcm
-sudo systemctl enable sddm
+sudo apt install -y gnome-shell gnome-control-center gdm3 kitty flatpak
+sudo systemctl enable gdm3
 
 # ====================================
 # 3. Instalar VS Code
