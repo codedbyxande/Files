@@ -8,7 +8,7 @@ sudo dnf update -y
 # ====================================
 # 2. Instalar Componentes Base (KDE Mínimo)
 # ====================================
-sudo dnf install -y plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty  flatpak
+sudo dnf install -y plasma-desktop dolphin dolphin-plugins ffmpegthumbs ark kitty  flatpak sddm sddm-kcm
 sudo dnf install -y hyprland hyprland-devel rofi-wayland
 sudo systemctl set-default graphical.target
 sudo systemctl enable sddm
