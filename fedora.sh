@@ -50,3 +50,9 @@ if [[ "$install_nvidia" =~ ^[Ss]$ ]]; then
     sudo dnf install -y akmod-nvidia
     sudo dnf install -y xorg-x11-drv-nvidia-cuda
 fi
+
+# ====================================
+# 7.Cosmic Desktop
+# ====================================
+sudo dnf copr enable ryanabx/cosmic-epoch
+sudo dnf install cosmic-desktop
