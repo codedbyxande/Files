@@ -54,5 +54,4 @@ fi
 # ====================================
 # 7.Cosmic Desktop
 # ====================================
-sudo dnf copr enable ryanabx/cosmic-epoch
-sudo dnf install cosmic-desktop
+sudo dnf install @cosmic-desktop-environment
