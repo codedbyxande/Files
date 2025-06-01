@@ -27,7 +27,6 @@ sudo dnf install -y code
 sudo dnf install -y flatpak # Garante que flatpak esteja instalado
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install -y flathub com.github.tchx84.Flatseal
-flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub app.zen_browser.zen
 
 # ====================================
