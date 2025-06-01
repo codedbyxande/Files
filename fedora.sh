@@ -51,7 +51,4 @@ if [[ "$install_nvidia" =~ ^[Ss]$ ]]; then
     sudo dnf install -y xorg-x11-drv-nvidia-cuda
 fi
 
-# ====================================
-# 7.Cosmic Desktop
-# ====================================
-sudo dnf install @cosmic-desktop-environment
+
