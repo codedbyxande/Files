@@ -9,6 +9,7 @@ sudo dnf update -y
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
 sudo dnf install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak
+sudo dnf install -y hyprland hyprland-devel rofi-wayland
 sudo systemctl set-default graphical.target
 sudo systemctl enable gdm
 
