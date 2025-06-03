@@ -9,7 +9,7 @@ sudo apt full-upgrade -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo apt install -y gnome-shell gnome-control-center gdm3 kitty nautilus flatpak
+sudo apt install -y gnome-shell gnome-control-center gdm3 kitty nautilus flatpak fish gir1.2-gtop-2.0 gir1.2-gmenu-3.0
 sudo systemctl enable gdm3
 
 # ====================================
@@ -28,7 +28,7 @@ sudo apt install code # or code-insiders
 # ====================================
 # 4. Instalar Pop Shell (Tiling)
 # ====================================
-sudo apt install -y nodejs npm typescript make git
+sudo apt install -y node-typescript make git
 TEMP_DIR=$(mktemp -d -t pop-shell-XXXXXX)
 git clone https://github.com/pop-os/shell.git "${TEMP_DIR}/pop-shell"
 cd "${TEMP_DIR}/pop-shell"
@@ -40,10 +40,10 @@ rm -rf "${TEMP_DIR}"
 # 5. Configurar Flatpak
 # ====================================
 sudo apt install -y flatpak # Garante que flatpak esteja instalado
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install -y flathub com.github.tchx84.Flatseal
-flatpak install -y flathub com.mattjakeman.ExtensionManager
-flatpak install -y flathub app.zen_browser.zen
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak install -y flathub com.github.tchx84.Flatseal
+sudo flatpak install -y flathub com.mattjakeman.ExtensionManager
+sudo flatpak install -y flathub app.zen_browser.zen
 
 # ====================================
 # 6. Instalar Drivers NVIDIA (Opcional)
