@@ -6,18 +6,12 @@
 sudo pacman -Syu --noconfirm
 
 # ====================================
-# 2. Instalar Componentes Base (GNOME Mínimo)
-# ====================================
-sudo pacman -S --noconfirm gnome-shell gnome-control-center gdm kitty nautilus flatpak
-sudo systemctl enable gdm
-
-# ====================================
-# 3. Instalar VS Code 
+# 2. Instalar VS Code 
 # ====================================
 paru -S --noconfirm visual-studio-code-bin
 
 # ====================================
-# 4. Instalar Pop Shell (Tiling)
+# 3. Instalar Pop Shell (Tiling)
 # ====================================
 sudo pacman -S --noconfirm nodejs npm typescript make git
 TEMP_DIR=$(mktemp -d -t pop-shell-XXXXXX)
@@ -28,7 +22,7 @@ cd - > /dev/null
 rm -rf "${TEMP_DIR}"
 
 # ====================================
-# 5. Configurar Flatpak
+# 4. Configurar Flatpak
 # ====================================
 sudo pacman -S --noconfirm flatpak # Garante que flatpak esteja instalado
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
