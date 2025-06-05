@@ -6,11 +6,10 @@
 sudo dnf update -y
 
 # ====================================
-# 2. Instalar Componentes Base (GNOME Mínimo)
+# 2. Instalar Cosmic
 # ====================================
-sudo dnf install -y gnome-shell gnome-control-center gdm kitty nautilus flatpak
-sudo systemctl set-default graphical.target
-sudo systemctl enable gdm
+sudo dnf copr enable ryanabx/cosmic-epoch
+sudo dnf install cosmic-desktop
 
 # ====================================
 # 3. Instalar VS Code
