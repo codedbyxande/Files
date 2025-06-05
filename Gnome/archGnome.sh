@@ -8,7 +8,7 @@ sudo pacman -Syu --noconfirm
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo pacman -S --noconfirm gnome-shell gnome-control-center gdm kitty nautilus flatpak
+sudo pacman -S --noconfirm gnome flatpak
 sudo pacman -S --noconfirm hyprland rofi-wayland nwg-lock nwg-displays pop-icon-theme
 sudo systemctl enable gdm
 
