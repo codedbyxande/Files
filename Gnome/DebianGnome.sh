@@ -9,7 +9,7 @@ sudo apt full-upgrade -y
 # ====================================
 # 2. Instalar Componentes Base (GNOME Mínimo)
 # ====================================
-sudo apt install -y gnome-shell gnome-control-center gdm3 kitty nautilus flatpak fish gir1.2-gtop-2.0 gir1.2-gmenu-3.0
+sudo apt install -y gnome flatpak fish gir1.2-gtop-2.0 gir1.2-gmenu-3.0
 sudo systemctl enable gdm3
 
 # ====================================
