@@ -6,10 +6,9 @@
 sudo dnf update -y
 
 # ====================================
-# 2. Instalar Cosmic
+# 2. Instalar gnome
 # ====================================
-sudo dnf copr enable ryanabx/cosmic-epoch
-sudo dnf install cosmic-desktop
+sudo dnf install gnome-shell gnome-control-center gnome-terminal nautilus 
 
 # ====================================
 # 3. Instalar VS Code
