@@ -36,3 +36,9 @@ flatpak install -y flathub app.zen_browser.zen
 # Lembre-se de que os cabeçalhos do kernel devem estar instalados.
 # ====================================
 # sudo pacman -S --noconfirm nvidia-dkms nvidia-utils nvidia-settings
+
+
+pacman -S --needed git base-devel
+git clone --depth 1 https://github.com/HyDE-Project/HyDE ~/HyDE
+cd ~/HyDE/Scripts
+./install.sh
